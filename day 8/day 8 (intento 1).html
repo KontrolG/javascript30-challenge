@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>Day 8</title>
+  <style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    color: hsl(355, 100%, 50%);
+  }
+  </style>
+</head>
+<body>
+  <canvas class="mainCanvas"></canvas>
+  <script>
+    'use strict';
+
+    const canvas = document.querySelector(".mainCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const canvasContext = canvas.getContext("2d");
+    canvasContext.fillStyle = "#333";
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+    canvasContext.fill();
+
+    canvas.paintingHue = 0;
+    canvasContext.lineWidth = 20;
+    canvasContext.lineCap = "round";
+    canvasContext.lineJoin = "round";
+    canvasContext.globalCompositeOperation = "color-dodge"
+
+    let lastX = 0;
+    let lastY = 0;
+
+    
+
+    const changeLineWidth = () => {
+      if (canvasContext.lineWidth >= 50) canvas.reducing = true;
+      else if (canvasContext.lineWidth <= 1) canvas.reducing = false;
+      canvasContext.lineWidth += canvas.reducing ? -1 : 1;
+    }
+
+    const changeColor = () => {
+      canvasContext.strokeStyle = `hsl(${canvas.paintingHue}, 100%, 50%)`;
+      canvas.paintingHue += canvas.paintingHue <= 350 ? 1 : -canvas.paintingHue;
+    }
+
+    canvas.addEventListener("mousedown", e => {
+      canvas.painting = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    })
+
+    canvas.addEventListener("mousemove", e => {
+      if (canvas.painting) {
+        changeColor();
+        changeLineWidth();
+        canvasContext.beginPath();
+        canvasContext.moveTo(lastX, lastY);
+        canvasContext.lineTo(e.offsetX, e.offsetY);
+        canvasContext.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+      }
+    })
+
+    canvas.addEventListener("mouseup", e => {
+      canvas.painting = false;
+    })
+  </script>
+  <!-- <script>
+  'use strict';
+
+  const canvas = document.querySelector(".mainCanvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const canvasContext = canvas.getContext("2d");
+  canvas.paintingHue = 0;
+  canvasContext.lineWidth = 20;
+
+  canvasContext.fillStyle = "#333";
+  canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+  canvasContext.fill();
+
+  const changeLineWidth = () => {
+    if (canvas.circleRadius >= 40) canvas.reducing = true;
+    else if (canvas.circleRadius <= 5) canvas.reducing = false;
+    canvas.circleRadius += canvas.reducing ? -0.5 : 0.5;
+  }
+
+  const changeColor = () => {
+    canvasContext.fillStyle = `hsl(${canvas.paintingHue}, 100%, 50%)`;
+    canvas.paintingHue += canvas.paintingHue <= 350 ? 1 : -canvas.paintingHue;
+  }
+
+  const degToRad = degress => degress * Math.PI / 180;
+
+  canvas.addEventListener("mousedown", e => {
+    canvas.painting = true;
+    changeColor();
+    canvas.circleRadius = 20;
+  })
+
+  canvas.addEventListener("mousemove", e => {
+    if (canvas.painting) {
+    canvasContext.beginPath();
+      canvasContext.arc(e.x - 10, e.y - 10, canvas.circleRadius, degToRad(0), degToRad(360), false);
+      canvasContext.fill();
+      changeColor();
+      changeLineWidth();
+    }
+  })
+
+  canvas.addEventListener("mouseup", e => {
+    canvas.painting = false;
+  })
+  </script> -->
+  <!-- <script>
+    'use strict';
+
+    const canvas = document.querySelector(".mainCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const canvasContext = canvas.getContext("2d");
+    canvas.paintingHue = 0;
+    canvasContext.lineWidth = 20;
+
+    const line = {
+      actualX: 0,
+      actualY: 0,
+      currentSize: 20,
+      currentHue: 0,
+      reducing: false,
+
+      draw() {
+        if (this.painting) {
+          canvasContext.beginPath();
+          canvasContext.fillStyle = `hsl(${this.currentHue}, 100%, 50%)`;
+          canvasContext.arc(this.actualX, this.actualY, this.currentSize, 0, 2 * Math.PI);
+          canvasContext.fill();
+        }
+      },
+
+      changeSize() {
+        if (this.currentSize >= 40) this.reducing = true;
+        else if (this.currentSize <= 5) this.reducing = false;
+        this.currentSize += this.reducing ? -1 : 1;
+      },
+
+      changeColor() {
+        this.currentHue += canvas.paintingHue <= 350 ? 2 : -canvas.paintingHue;
+      },
+
+      update() {
+        this.draw();
+        this.changeColor();
+        this.changeSize();
+      }
+    }
+
+    window.addEventListener("mousedown", e => {
+      line.painting = true;
+      line.actualX = e.x;
+      line.actualY = e.y;
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (!line.painting) return true;
+      const { pageX: pointerX, pageY: pointerY} = e;
+
+      const pointerXisBiggerThanPointerY = pointerX > pointerY;
+
+      let x = 0;
+      const pointersAreOk = (pointerX !== undefined) && (pointerY !== undefined);
+      while ((line.actualX !== pointerX || line.actualY !== e.y) && pointersAreOk) {
+        if (x > 500) {
+          debugger;
+          break;
+        }
+
+        if (line.actualX < pointerX) {
+          line.actualX += 0.5;
+        } else if (line.actualX > pointerX) {
+          line.actualX -= 0.5;
+        }
+
+        if (line.actualY < pointerY) {
+          line.actualY += 0.5;
+        } else if (line.actualY > pointerY) {
+          line.actualY -= 0.5;
+        }
+
+        x++;
+        
+        line.draw();
+      }
+      line.update();
+    })
+
+    window.addEventListener("mouseup", e => {
+      line.painting = false;
+    })
+  
+  </script> -->
+  <!-- <script>
+  'use strict';
+  
+  
+  </script> -->
+</body>
+</html>

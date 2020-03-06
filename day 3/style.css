@@ -1,0 +1,63 @@
+:root {
+  --color: #f7be24;
+  --second-color: #fff;
+  --spacing: 0px;
+  --blur: 0px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: radial-gradient(circle farthest-corner at center, rgb(5, 90, 160), rgb(6, 94, 167));
+  font-family: 'Lato', sans-serif;
+  color: var(--second-color);
+  font-size: 22px;
+  font-weight: 90%;
+}
+
+strong {
+  color: var(--color);
+}
+
+header {
+  text-align: center;
+  margin: 5% auto;
+}
+
+form {
+  text-align: center;
+  line-height: 150%;
+  vertical-align: middle;
+}
+
+form * {
+  margin: 0 0.5%;
+}
+
+form label {
+  margin-left: 5%;
+}
+
+input[type="range"] {
+  cursor: pointer;
+}
+
+form label:first-child {
+  margin-left: 0;
+}
+
+figure {
+  height: 30%;
+  width: 30%;
+  margin: 5% auto;
+}
+
+figure img {
+  width: 100%;
+  border: var(--spacing) solid var(--color);
+  filter: blur(var(--blur));
+}

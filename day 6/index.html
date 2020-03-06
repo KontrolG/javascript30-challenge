@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Day 6</title>
+</head>
+<body>
+  <header>
+    <h1>Type a city</h1>
+  </header>
+
+  <section>
+    <form action="" class="search__form">
+      <input type="text" name="search__input" id="search__input" placeholder="City or State">
+    </form>
+    <ul class="results">
+    </ul>
+  </section>
+
+  <script>
+    const endpoint = "cities.json";
+
+    const cities = [];
+
+    const ulElement = document.querySelector(".results");
+
+    fetch(endpoint)
+      .then(response => response.json())
+      .then(data => cities.push(...data.map(({ city, state, population, rank }) => ({ city: city.toLowerCase(), state: state.toLowerCase(), population, rank: parseInt(rank, 10) }))));
+
+    const search = query => {
+      return cities
+              .filter(({city, state}) => city.includes(query) || state.includes(query))
+              .sort((lastCity, nextCity) => lastCity.rank - nextCity.rank)
+              .slice(0, 10);
+    }
+
+    const highlightMatched = (string, query) => {
+      return string.replace(query, `<em>${query}</em>`);
+    }
+    
+    function handleChange(e) {
+      const inputValue = this.value.toLowerCase();
+      ulElement.innerHTML = "";
+      if (inputValue.length > 1) {
+        const results = search(inputValue);
+        for (const result of results) {
+          const cityName = highlightMatched(result.city, inputValue);
+          const stateName = highlightMatched(result.state, inputValue);
+          const markup = `<li>${cityName}, ${stateName} <span>${result.population}</span></li>`;
+          ulElement.insertAdjacentHTML("beforeEnd", markup);
+        }
+      }
+    };
+
+    const input = document.querySelector("#search__input");
+
+    input.addEventListener("keyup", handleChange);
+  </script>
+</body>
+</html>

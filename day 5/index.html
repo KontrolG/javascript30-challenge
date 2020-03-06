@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Flexbox Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="gallery">
+    <div class="image">
+      <p>Hey</p>
+      <p>Let's</p>
+      <p>Dance</p>
+    </div>
+    <div class="image">
+      <p>Give</p>
+      <p>Take</p>
+      <p>Receive</p>
+    </div>
+    <div class="image">
+      <p>Experience</p>
+      <p>It</p>
+      <p>Today</p>
+    </div>
+    <div class="image">
+      <p>Give</p>
+      <p>All</p>
+      <p>You can</p>
+    </div>
+    <div class="image">
+      <p>Life</p>
+      <p>In</p>
+      <p>Motion</p>
+    </div>
+  </div>
+
+
+  <script>
+  const panels = document.querySelectorAll(".image");
+
+
+  function toggleOpen(e) {
+    if (e.detail > 1) return; // prevenir que mi mouse de doble click;
+    const previousPanel = document.querySelector(".image.open");
+    if (previousPanel) previousPanel.classList.remove("open");
+    if (previousPanel !== this) this.classList.add("open");
+  };
+
+  function toggleMargin(e) {
+    if (e.propertyName === "flex-grow") {
+      this.classList.toggle("open-active");
+    }
+  }
+
+  panels.forEach(panel => panel.addEventListener("click", toggleOpen));
+  panels.forEach(panel => panel.addEventListener("transitionend", toggleMargin));
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+  
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+  
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+    
+    // Regular
+    
+    // Interpolated
+    
+    // Styled
+    
+    // warning!
+    
+    // Error :|
+    
+    // Info
+    
+    // Testing
+    
+    // clearing
+    
+    // Viewing DOM Elements
+    
+    // Grouping together
+    dogs.forEach((dog, index) => {
+      console.group(`Dog number ${index}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`This is ${dog.age}`);
+      console.groupEnd();
+    })
+    
+    // counting
+    
+    // timing
+    const factorialOf = number => {
+      if (number <= 1) {
+        return number
+      }
+      return number * factorialOf(number - 1);
+    };
+    
+    console.time("ASd");
+    let x = 0;
+    while (x <= 1000) {
+      console.log(factorialOf(10000));
+      x++
+    }
+    console.timeEnd("ASd");
+    
+  </script>
+</body>
+</html>

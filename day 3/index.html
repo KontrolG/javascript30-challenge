@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Day 3</title>
+</head>
+<body>
+  <header>
+    <h1>
+      Day 3: CSS Variables in <strong>JS</strong>
+    </h1>
+  </header>
+  <form>
+    <label for="spacing">Spacing</label>
+    <input type="range" name="spacing" id="spacing" data-unit="px" value="0" min="0" max="20">
+    <label for="blur">Blur</label>
+    <input type="range" name="blur" id="blur" data-unit="px" value="0" min="0" max="10">
+    <label for="color">Color</label>
+    <input type="color" name="color" id="color" data-unit="" value="#f7be24">
+  </form>
+  <figure>
+    <img src="img.jpg" alt="Image to be modify">
+  </figure>
+
+  <script>
+  const root = document.documentElement;
+  const handleUpdate = e => {
+    const element = e.target;
+    if (element.matches("input")) {
+      const propertyName = `--${element.id}`;
+      const valueUnit = element.dataset.unit || "";
+      const propertValue = `${element.value}${valueUnit}`;
+      root.style.setProperty(propertyName, propertValue);
+    }    
+  };
+  root.querySelector("form").addEventListener("change", handleUpdate);
+  root.querySelector("form").addEventListener("mousemove", handleUpdate);
+  </script>
+</body>
+</html>

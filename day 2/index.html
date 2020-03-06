@@ -15,10 +15,109 @@
     <div class="tick seconds"><div></div></div>
   </div>
 
-  <p class="date">lun., 24 de febrero</p>
+  <p class="date"></p>
 
 
   <script>
+    'use strict';
+
+    let currentSecondsDegress;
+    let currentMinutesDegress;
+    let currentHoursDegress;
+    let date = new Date();
+    date.setHours(18);
+
+
+    const getDegressFromSecondsOrMinutes = secondsOrMinutes => {
+      return secondsOrMinutes * 6;
+    }
+
+    const updateTicks = () => {
+      const now = new Date();
+      if (Math.abs(date.getSeconds() - now.getSeconds()) > 0) {
+          currentSecondsDegress += 6;
+      }
+
+      if (Math.abs(date.getMinutes() - now.getMinutes()) > 0) {
+        currentMinutesDegress += 6;
+      }
+
+      if (now.getMinutes() % 12 === 0) {
+        currentHoursDegress += 6;
+      }
+
+      date = now;
+
+
+      const secondsTick = document.querySelector(".seconds");
+      const minutesTick = document.querySelector(".minutes");
+      const hoursTick = document.querySelector(".hours");
+
+      secondsTick.style.transform = `rotate(${currentSecondsDegress}deg)`;
+      minutesTick.style.transform = `rotate(${currentMinutesDegress}deg)`;
+      hoursTick.style.transform = `rotate(${currentHoursDegress}deg)`;
+    }
+
+
+    const modifyDate = () => {
+      const dateParagraph = document.querySelector(".date");
+      dateParagraph.textContent = date.toLocaleDateString("es-VE", {
+        weekday: "short",
+        day: "numeric",
+        month: "long"
+      });
+    }
+
+    const initializateTimes = () => {
+      currentHoursDegress = Math.ceil(date.getHours() * (15.652173913043478 * 2));
+      currentMinutesDegress = getDegressFromSecondsOrMinutes(date.getMinutes());
+      currentSecondsDegress = getDegressFromSecondsOrMinutes(date.getSeconds());
+    }
+
+    const changeBackground = () => {
+      const actualHour = date.getHours();
+      const isEvening = actualHour > 17 || actualHour < 6;
+      const firstColorsValues = isEvening ? "0, 255, 255" : "255, 255, 0";
+      let secondColorsValues;
+      // const secondColorsValues = "255, 55, 0";
+      const hourOfThePeriod = actualHour % 12;
+
+      const totalValuesToSubtract = 510;
+      const colorValuePerHour = 42;
+
+      let totalToSubtract = colorValuePerHour * hourOfThePeriod;
+
+      let primaryColorValue = 255;
+      let secondColorValue;
+
+      const firstSubtract = totalToSubtract - primaryColorValue;
+      if (firstSubtract >= 0) {
+        primaryColorValue = 0;
+        secondColorValue = 255 - firstSubtract;
+      } else {
+        primaryColorValue = 255 - totalToSubtract;
+        secondColorValue = 255;
+      }
+
+      if (isEvening) secondColorsValues = `0, ${primaryColorValue}, ${secondColorValue}`;
+      else secondColorsValues = `${secondColorValue}, ${primaryColorValue}, 0`;
+
+      document.querySelector("body").style.backgroundImage = `linear-gradient(to bottom, rgb(${firstColorsValues}), rgb(${secondColorsValues}))`;
+    }
+
+    const startClock = e => {
+        modifyDate();
+        changeBackground()
+        initializateTimes();
+        updateTicks();      
+    };
+
+    window.addEventListener("load", startClock);
+
+    const interval = setInterval(() => {
+      updateTicks();
+    }, 250);
+
   </script>
 </body>
 </html>
