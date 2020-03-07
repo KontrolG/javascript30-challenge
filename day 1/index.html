@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Day 1: Drum kit</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #333;
+      color: #fff;
+      font-size: 14px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    section {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      padding: 1% 18%;
+    }
+
+    section div {
+      border: 1.5px solid #111;
+      background-color: #222;
+      border-radius: 5px;
+      text-align: center;
+      padding: 2% 0;
+      margin: 0 1%;
+      flex: 1;
+      transition: all 0.07s;
+    }
+
+    .playing {
+      box-shadow: 0px 0px 10px 1px goldenrod;
+      border: 1.5px goldenrod;
+      transform: scale(1.05);
+      background-color: #111;
+    }
+
+    section div p {
+      color: goldenrod;
+      text-transform: uppercase;
+      font-size: 90%;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <div data-key="65"><h2>A</h2><p>clap</p></div>
+    <div data-key="83"><h2>S</h2><p>hihat</p></div>
+    <div data-key="68"><h2>D</h2><p>kick</p></div>
+    <div data-key="70"><h2>F</h2><p>openhat</p></div>
+    <div data-key="71"><h2>G</h2><p>boom</p></div>
+    <div data-key="72"><h2>H</h2><p>ride</p></div>
+    <div data-key="74"><h2>J</h2><p>snare</p></div>
+    <div data-key="75"><h2>K</h2><p>tom</p></div>
+    <div data-key="76"><h2>L</h2><p>tink</p></div>
+  </section>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+
+  <script>
+    "use strict";
+    
+    const playSound = e => {
+      const dataKey = `[data-key="${e.keyCode}"]`;
+      const audio = document.querySelector(`audio${dataKey}`);
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+        const element = document.querySelector(`div${dataKey}`);
+        element.classList.add("playing");
+      }
+    }
+
+    const removeClass = e => {
+      if (e.propertName = "transform") e.target.classList.remove("playing");
+    }
+
+    const keys = document.querySelector("section");
+
+    keys.addEventListener("transitionend", removeClass);
+
+    window.addEventListener("keydown", playSound);
+
+    /* const soundController = e => {
+      const dataKey = `[data-key="${e.keyCode}"]`;
+      const element = document.querySelector(`div${dataKey}`);
+      if (element) element.classList.toggle("down");
+      if (e.type === "keyup") {
+        const audio = document.querySelector(`audio${dataKey}`);
+        audio.currentTime = 0;
+        audio.play();
+      }  
+    }
+    ["keydown", "keyup"].forEach(event => window.addEventListener(event, soundController)) */
+  </script>
+</body>
+</html>

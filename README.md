@@ -28,3 +28,5 @@
 - console.dir(domElement), muestra el prototipo del objeto. 
 ### Day 10
 - No todo se hace con metodos de Arrays :(
+### Day 11
+- Repaso Video API.
