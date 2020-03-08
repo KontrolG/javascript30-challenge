@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <!-- <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script> -->
+</head>
+<body>
+<script>
+  'use strict';
+/*
+- Introducir la letra presionada en un array.
+- almacenar las ultimas 6 letras presionadas.
+- si se presionó wesbos, mostrar "ding ding ding".
+- NO DETECTA MAYUSCULAS.
+*/
+const keysPressed = [];
+
+const addKey = key => {
+  keysPressed.push(key);
+  if (keysPressed.length > 6) keysPressed.shift();
+}
+
+const checkKeySecuence = () => {
+  if (keysPressed.toString().toLowerCase() === "w,e,s,b,o,s") console.log("DING DING DING!");
+}
+
+const keyupHandler = e => {
+  const { key } = e;
+  addKey(key);
+  checkKeySecuence();
+}
+
+window.addEventListener("keypress", keyupHandler);
+</script>
+</body>
+</html>

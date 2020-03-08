@@ -30,3 +30,5 @@
 - No todo se hace con metodos de Arrays :(
 ### Day 11
 - Repaso Video API.
+### Day 12
+- _Por ver solución_.
