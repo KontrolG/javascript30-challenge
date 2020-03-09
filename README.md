@@ -32,3 +32,10 @@
 - Repaso Video API.
 ### Day 12
 - _Por ver solución_.
+### Day 13
+- Una debouncing function, para prevenir multiples llamadas a una función debido a listeners que se ejecutan de forma seguida, como por ejemplo el scroll, resize, keyup/keydown. Util para reducir la carga al servidor en caso de llamadas a APIs y mejorar el rendimiento, asi como para evitar que se ejecute muchas veces una misma funcion debido a la ocurrencia constante de un evento. Hace uso de las clousures para persistir las variables.
+- Esta compuesta por: 
+  - func: funcion a ser ejecutada luego del tiempo. Ex. ScrollEventController
+  - wait: tiempo que esperara para ejecutar la funcion luego de la ultima accion requerida. Ex. tiempo luego del ultimo scroll.
+  - inmediate: determina si la funcion se llama antes o despues del tiempo.
+  - timeout: variable que contiene la funcion a ser llamada luego del tiempo, el cual es cancelado si se vuelve a realizar la accion asociada con el debouncer.
