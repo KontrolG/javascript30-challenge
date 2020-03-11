@@ -68,3 +68,7 @@
 ### Day 14
 
 - Los objetos dentro de objetos son refenciados, no copiados.
+
+### Day 15
+- Repaso de LocalStorage.
+- Recuperar items durante la asignación del arreglo.
