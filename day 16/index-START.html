@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+  'use sctrict';
+  const h1 = document.querySelector("h1");
+  const hero = document.querySelector(".hero");
+
+  const TextShadow = function (colorString, multiplyX, multiplyY) {
+    this.colorString = colorString;
+    this.multiplyX = multiplyX;
+    this.multiplyY = multiplyY;
+  }
+
+  TextShadow.prototype.getString = function () {
+    return `${this.colorString} ${this.positionX}px ${this.positionY}px 0px`;
+  }
+
+  TextShadow.prototype.modifyPosition = function (x, y) {
+    [this.positionX, this.positionY] = [x * this.multiplyX, y * this.multiplyY];
+  }
+
+  const shadows = [
+    new TextShadow("crimson", -0.5, -0.5),
+    new TextShadow("rgba(95, 105, 224, .7)", 0.5, 1),
+    new TextShadow("green", 0.5, 0.5),
+    new TextShadow("yellow", -0.5, 1),
+  ];
+
+  const modifyElementShadows = e => {
+    const { x, y } = e;
+    const propertyString = shadows.map((shadow, index) => {
+      let newX = x - (window.innerWidth / 2);
+      let newY = y - (window.innerHeight / 2);
+      if (index % 2 === 0) [newX, newY] = [newY, newX];
+      shadow.modifyPosition(newX, newY);
+      return shadow.getString();
+    })
+                                  .join(", ");
+    console.log(propertyString);
+    h1.style.textShadow = propertyString; 
+  }
+
+  hero.addEventListener("mousemove", modifyElementShadows);
+</script>
+</body>
+</html>
