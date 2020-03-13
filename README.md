@@ -78,3 +78,7 @@
 
 - Atributo HTML global contenteditable, que le indica al navegador que permita editar el contenido de un elemento.
 - No sobrecomplicar las cosas.
+
+### Day 17
+
+- Uso de RegExp para eliminar articulos.
