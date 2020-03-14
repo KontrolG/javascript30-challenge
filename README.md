@@ -82,3 +82,7 @@
 ### Day 17
 
 - Uso de RegExp para eliminar articulos.
+
+### Day 18
+
+- Repaso Array.prototype.reduce.
