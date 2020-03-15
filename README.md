@@ -86,3 +86,9 @@
 ### Day 18
 
 - Repaso Array.prototype.reduce.
+
+### Day 19
+
+- El MediaStream API, para controlar canales de audio y video provinientes del dispositivo y de otros recurdos.
+- Para controlar la camara, primero se debe solicitar el permiso al usuario.
+- Investigar Capabilities & Constraints. Constraints, restricciones en los formatos utilizados por una API.
