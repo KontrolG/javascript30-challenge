@@ -92,3 +92,7 @@
 - El MediaStream API, para controlar canales de audio y video provinientes del dispositivo y de otros recurdos.
 - Para controlar la camara, primero se debe solicitar el permiso al usuario.
 - Investigar Capabilities & Constraints. Constraints, restricciones en los formatos utilizados por una API.
+
+### Day 22
+
+- Repaso a getBoundingClientRect y estilos en linea con JS.
