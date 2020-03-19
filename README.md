@@ -96,3 +96,7 @@
 ### Day 22
 
 - Repaso a getBoundingClientRect y estilos en linea con JS.
+
+### Day 24
+
+- Repaso a Eventos cuando se scrollea.
