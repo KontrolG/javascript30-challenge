@@ -100,3 +100,9 @@
 ### Day 24
 
 - Repaso a Eventos cuando se scrollea.
+
+### Day 26
+
+- Repaso a DOM Manipulation.
+- Condicional en setTimeout para evitar que se cambiara la opacidad si el elemento no estaba activo. Para manejar la animación del display.
+- Otra vez utilizó el objeto coords.
