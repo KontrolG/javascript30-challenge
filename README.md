@@ -106,3 +106,7 @@
 - Repaso a DOM Manipulation.
 - Condicional en setTimeout para evitar que se cambiara la opacidad si el elemento no estaba activo. Para manejar la animación del display.
 - Otra vez utilizó el objeto coords.
+
+### Day 27
+
+- Uso de retorno prematuro de una función para evitar que se ejecute codigo en caso de cumplirse una condición para ahorrar identación.
