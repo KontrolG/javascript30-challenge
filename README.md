@@ -110,3 +110,7 @@
 ### Day 27
 
 - Uso de retorno prematuro de una función para evitar que se ejecute codigo en caso de cumplirse una condición para ahorrar identación.
+
+### Day 28
+
+- To do.
