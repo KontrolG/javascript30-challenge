@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack A Mole!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Whack-a-mole! <span class="score">0</span></h1>
+  <button>Start!</button>
+
+  <div class="game">
+    <div class="hole hole1">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole2">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole3">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole4">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole5">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole6">
+      <div class="mole"></div>
+    </div>
+  </div>
+
+<script>
+  'use strict';
+
+  const button = document.querySelector('button');
+  const holes = document.querySelectorAll('.hole');
+  const scoreBoard = document.querySelector('.score');
+  const moles = document.querySelectorAll('.mole');
+
+  let lastHole;
+  let isPlaying = false;
+  let moleCount = 0;
+  let timeout;
+
+  const hideLastMole = () => {
+    if (lastHole) lastHole.classList.remove("up");
+    if (isPlaying) 
+      showNextMole();
+    else
+      restartGame();
+  }
+
+  const getRandomHole = () => {
+    const randomIndex = Math.floor(Math.random() * holes.length);
+    const hole = holes[randomIndex];
+    if (hole === lastHole) {
+      return getRandomHole();
+    }
+    lastHole = hole;
+    return hole;
+  }
+
+  const showNextMole = () => {
+    moleCount++;
+    const hole = getRandomHole();
+    hole.classList.add("up");
+    timeout = setTimeout(hideLastMole, 250 + (Math.random() * 500));
+  }
+
+  const startGame = () => {
+    if (isPlaying) return;
+    isPlaying = true;
+    scoreBoard.textContent = 0;
+    showNextMole();
+    setTimeout(() => isPlaying = false, 10000);
+  };
+
+  const restartGame = () => {
+    moleCount = 0;
+    isPlaying = false;
+  }
+
+  function whackMole(e) {
+    if (!e.isTrusted && e.detail > 1) return;
+    scoreBoard.textContent = parseInt(scoreBoard.textContent, 10) + 1;
+    clearTimeout(timeout);
+    hideLastMole();
+  }
+
+  button.addEventListener("click", startGame);
+  moles.forEach(mole => mole.addEventListener("click", whackMole));
+</script>
+</body>
+</html>

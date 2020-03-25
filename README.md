@@ -114,3 +114,9 @@
 ### Day 28
 
 - To do.
+
+### Day 30
+
+- Usar recursividad para llamar la función de indice aleatorio hasta obtener uno diferente al anterior.
+- Un setTimeout para deterner el juego luego de un periodo de tiempo.
+- Verificar si el evento 'Click' es confiable.
